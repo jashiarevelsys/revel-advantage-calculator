@@ -1,0 +1,1 @@
+var app=angular.module("quoteGenerator",[]);app.controller("quoteController",function(o){o.totalMonthlyVolume=1e3,o.totalMonthlyTransactions=100,o.totalMonthlyCosts=100});
