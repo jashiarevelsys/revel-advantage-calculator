@@ -1,9 +1,9 @@
-<?php 
+<?php
 
-require_once 'inc/keys.php';
-$secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
-$munchkinHash = hash('sha1', $secret);
-echo $munchkinHash;
+// require_once 'inc/keys.php';
+// $secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
+// $munchkinHash = hash('sha1', $secret);
+// echo $munchkinHash;
 
  ?>
 <html>
@@ -14,16 +14,26 @@ echo $munchkinHash;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/materia/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="/css/main.css" media="screen" title="no title">
 
 
 </head>
 <body>
-	
+
 	<div class="container">
-	<h1>Generate Your Quote</h1>
 
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
+    <div class="form-head">
+      <h1>Generate Your Quote</h1>
+      <p>
+        Any discription copy should go here.
+      </p>
+      <p>
+        Any disclaimer copy should go here!
+      </p>
+    </div>
 	   	<form id="initial-quote-form" name="getQuoteForm" novalidate>
 		  <div class="form-group">
 		  	<label for="fullName">Full Name</label>
@@ -57,13 +67,16 @@ echo $munchkinHash;
 		    <span class="input-group-addon">$</span>
 		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts">
 		  </div>
-		  <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid">
+      <div class="form-submit">
+        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid">
+      </div>
 		</form>
+    <!-- Results -->
 		<div class="my-quote" >
-			<h2>Prepared for:</h2>
-			<p>{{fullName}}</p>
+			<h2>Estimate Prepared for:</h2>
+			<p>{{fullName}} on {{dateToday-mm-dd-yy}}</p>
 			<p>{{email}}</p>
-			<p>{{businessName}}</p>		
+			<p>{{businessName}}</p>
 			<table class="table table-hover">
 			  <thead>
 			    <tr>
@@ -77,13 +90,13 @@ echo $munchkinHash;
 			    <tr>
 			      <th scope="row">Discount Rate</th>
 			      <td id="discount-rate-rate">2.49%</td>
-			      <td id="discount-rate-volume">{{totalMonthlyVolume}}</td>
+			      <td id="discount-rate-volume">${{totalMonthlyVolume}}</td>
 			      <td id="discount-rate-cost">{{totalMonthlyVolume * .0249 | currency}}</td>
 			    </tr>
 			    <tr>
 			      <th scope="row">Transaction Fee</th>
 			      <td id="transaction-fee-rate">$0.15</td>
-			      <td id="transaction-fee-volume">{{ totalMonthlyTransactions }}</td>
+			      <td id="transaction-fee-volume">${{ totalMonthlyTransactions }}</td>
 			      <td id="transaction-fee-cost">{{ (totalMonthlyTransactions) * .15 | currency }}</td>
 			    </tr>
 			    <tr>
@@ -112,9 +125,20 @@ echo $munchkinHash;
 			    </tr>
 			  </tbody>
 			</table>
-			<button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
-			<button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button>
-			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch Now</button>
+      <div class="quote-btns">
+        <button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
+  			<button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button>
+  			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch Now</button>
+      </div>
+      <div class="call-now">
+        <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
+        <form id="mktoForm_2552"></form>
+        <script>
+        MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
+        // MktoForms2.lightbox(form).show();
+        });
+        </script>
+      </div>
 			<div class="high-opacity-gradient"></div>
 
 		</div>
@@ -126,12 +150,12 @@ echo $munchkinHash;
 	<script>
 		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2550, function(form){
 			var fullName,
-				firstName, 
-				lastName, 
-				emailAddress, 
-				businessName, 
-				totalMonthlyVolume, 
-				totalMonthlyTransactions, 
+				firstName,
+				lastName,
+				emailAddress,
+				businessName,
+				totalMonthlyVolume,
+				totalMonthlyTransactions,
 				yourTotalMonthlyCosts;
 
 			var clickSubmitButton = document.getElementById('initial-quote-form-submit');
@@ -146,7 +170,7 @@ echo $munchkinHash;
 				totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
 				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
 				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
-				
+
 				form.setValues({
 					"FirstName" : firstName,
 					"LastName" : lastName,
@@ -160,7 +184,7 @@ echo $munchkinHash;
 				console.log(form.vals());
 			};
 
-				
+
 		});
 	</script>
 
@@ -172,9 +196,9 @@ echo $munchkinHash;
     	var app = angular.module('quoteGenerator', []);
 		app.controller('quoteController', function($scope, $location){
 			$scope.totalMonthlyVolume = 1000;
-			$scope.totalMonthlyTransactions = 100; 
-			$scope.yourTotalMonthlyCosts = 100; 
-			$scope.myLocation = $location;	
+			$scope.totalMonthlyTransactions = 100;
+			$scope.yourTotalMonthlyCosts = 100;
+			$scope.myLocation = $location;
 			$scope.showQuote = false;
 			$scope.totalMonthlyCostsUpdate = function() {
 				return ($scope.totalMonthlyVolume * .0249) + ($scope.totalMonthlyTransactions * .15) + (6.95 + 7.50)
@@ -188,13 +212,7 @@ echo $munchkinHash;
 		});
     </script>
     <script src="/js/quote.js"></script>
-<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
-<form id="mktoForm_2552"></form>
-<script>
-MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
-// MktoForms2.lightbox(form).show();
-});
-</script>
+
 
 <script type="text/javascript">
 (function() {
@@ -218,7 +236,7 @@ MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (for
   document.getElementsByTagName('head')[0].appendChild(s);
 })();
 </script>
-  
+
 
 </body>
 </html>
