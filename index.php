@@ -26,12 +26,13 @@
 
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
     <div class="form-head">
-      <h1>Generate Your Quote</h1>
+      <div class="adv-logo">
+        <img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
+      </div>
+      <h1>Generate Your Free Quote Today</h1>
       <p>
-        Any discription copy should go here.
-      </p>
-      <p>
-        Any disclaimer copy should go here!
+         Complete the form below for your very own Revel Advantage processing quote and get in contact with a Rep immediately.
+         <br><small class="text-muted">Rates are subject to change*</small>
       </p>
     </div>
 	   	<form id="initial-quote-form" name="getQuoteForm" novalidate>
@@ -54,17 +55,17 @@
 		    <span ng-show="getQuoteForm.businessName.$touched && getQuoteForm.businessName.$invalid">Your Business name is required.</span>
 		  </div>
 		  <div class="form-group">
-		    <label for="totalMonthlyVolume">Total Monthly Volume ($)</label>
-		    <span class="input-group-addon">$</span>
+		    <label for="totalMonthlyVolume">Current Total Monthly Volume (ex. $20,000)</label>
+		    <span class="input-group-addon"></span>
 		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" />
 		  </div>
 		  <div class="form-group">
-		    <label for="totalMonthlyTransactions">Total Monthly Transactions</label>
+		    <label for="totalMonthlyTransactions">Current Total Monthly Transactions</label>
 		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions">
 		  </div>
 		  <div class="form-group">
-		    <label for="totalMonthlyCosts">Your Total Monthly Costs</label>
-		    <span class="input-group-addon">$</span>
+		    <label for="totalMonthlyCosts">Current Total Monthly Processing Fees (ex. $400.00)</label>
+		    <span class="input-group-addon"></span>
 		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts">
 		  </div>
       <div class="form-submit">
@@ -74,9 +75,9 @@
     <!-- Results -->
 		<div class="my-quote" >
 			<h2>Estimate Prepared for:</h2>
-			<p>{{fullName}} on {{dateToday-mm-dd-yy}}</p>
+			<p>{{fullName}} of {{businessName}} on {{dateToday-mm-dd-yy}}</p>
 			<p>{{email}}</p>
-			<p>{{businessName}}</p>
+			<!-- <p>{{businessName}}</p> -->
 			<table class="table table-hover">
 			  <thead>
 			    <tr>
