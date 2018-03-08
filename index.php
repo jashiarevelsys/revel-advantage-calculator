@@ -1,11 +1,3 @@
-<?php 
-
-require_once 'inc/keys.php';
-$secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
-$munchkinHash = hash('sha1', $secret);
-echo $munchkinHash;
-
- ?>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -34,8 +26,8 @@ echo $munchkinHash;
 		    <label for="email">Email address</label>
 		    <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email address" ng-model="email" required>
 		    <span style="color:red" ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$invalid">
-			  <span ng-show="getQuoteForm.email.$error.required">Email is required.</span>
-			  <span ng-show="getQuoteForm.email.$error.email">Invalid email address.</span>
+			  <span ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$error.required">Email is required.</span>
+			  <span ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$error.email">Invalid email address.</span>
 		    </span>
 		  </div>
 		  <div class="form-group">
@@ -46,20 +38,20 @@ echo $munchkinHash;
 		  <div class="form-group">
 		    <label for="totalMonthlyVolume">Total Monthly Volume ($)</label>
 		    <span class="input-group-addon">$</span>
-		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" />
+		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" required>
 		  </div>
 		  <div class="form-group">
 		    <label for="totalMonthlyTransactions">Total Monthly Transactions</label>
-		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions">
+		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions" required>
 		  </div>
 		  <div class="form-group">
 		    <label for="totalMonthlyCosts">Your Total Monthly Costs</label>
 		    <span class="input-group-addon">$</span>
-		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts">
+		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts" required>
 		  </div>
-		  <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid">
+		  <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.$invalid" value="Get Quote">
 		</form>
-		<div class="my-quote" >
+		<div id="my-quote" style="display: none">
 			<h2>Prepared for:</h2>
 			<p>{{fullName}}</p>
 			<p>{{email}}</p>
@@ -120,6 +112,7 @@ echo $munchkinHash;
 		</div>
 		<!-- Add in the scripts here -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
  	<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
 	<!-- <form id="mktoForm_2550"></form> -->
@@ -131,13 +124,13 @@ echo $munchkinHash;
 				emailAddress, 
 				businessName, 
 				totalMonthlyVolume, 
-				totalMonthlyTransactions, 
+				totalMonthlyTransactions,
+				mktoHash, 
 				yourTotalMonthlyCosts;
+			var mktoForm = form;
 
 			var clickSubmitButton = document.getElementById('initial-quote-form-submit');
 			clickSubmitButton.onclick = function(){
-
-
 				fullName = document.getElementById('fullName').value;
 				firstName = fullName.split(' ').slice(0, -1).join(' ');
 				lastName = fullName.split(' ').slice(-1).join(' ');
@@ -146,22 +139,47 @@ echo $munchkinHash;
 				totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
 				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
 				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
-				
-				form.setValues({
-					"FirstName" : firstName,
-					"LastName" : lastName,
-					"Email" : emailAddress,
-					"Company" : businessName,
-					"Total_Monthly_Volume__c" : totalMonthlyVolume,
-					"Total_Monthly_Transactions__c" : totalMonthlyTransactions,
-					"Your_Currently_Monthly_Cost__c" : yourTotalMonthlyCosts
-				});
-				//form.submit();
-				console.log(form.vals());
+
+				if (emailAddress && fullName) {
+					
+					form.setValues({
+						"FirstName" : firstName,
+						"LastName" : lastName,
+						"Email" : emailAddress,
+						"Company" : businessName,
+						"Total_Monthly_Volume__c" : totalMonthlyVolume,
+						"Total_Monthly_Transactions__c" : totalMonthlyTransactions,
+						"Your_Currently_Monthly_Cost__c" : yourTotalMonthlyCosts
+					});
+					form.submit();
+					form.onSuccess(function(values, followUpUrl){
+						$('#initial-quote-form').hide();
+						$('#my-quote').show();
+						var values = form.vals();
+
+						$.post('/inc/quote.php', {email: values['Email']}, function(data, textStatus, xhr) {
+							var mktoHash = JSON.parse(data);
+							var emailMeButton = document.getElementById('emailQuoteButton');
+							emailMeButton.onclick = function(){
+								Munchkin.munchkinFunction('associateLead', {
+									'Email' : values['Email'],
+									'utm_term' : 'Yes Email Me'
+								}, 
+								mktoHash);
+								this.innerHTML = 'Changed';
+							}
+						});
+						return false;								
+
+					});
+					
+				}
 			};
 
 				
 		});
+
+
 	</script>
 
 	</div>
@@ -188,13 +206,8 @@ echo $munchkinHash;
 		});
     </script>
     <script src="/js/quote.js"></script>
-<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
+<!-- <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script> -->
 <form id="mktoForm_2552"></form>
-<script>
-MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
-// MktoForms2.lightbox(form).show();
-});
-</script>
 
 <script type="text/javascript">
 (function() {
@@ -218,7 +231,30 @@ MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (for
   document.getElementsByTagName('head')[0].appendChild(s);
 })();
 </script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script>
+
+// This code is collected but useful, click below to jsfiddle link.
+
+</script>
   
+<script>
+	var switchQuoteButton = document.getElementById('switchQuoteButton');
+	switchQuoteButton.onclick = function(){
+		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
+			MktoForms2.lightbox(form).show();
+		});		
+	}
+	var saveQuoteButton = document.getElementById('saveQuoteButton');
+	saveQuoteButton.onclick = function(){
+		var doc = new jsPDF();
+	    doc.fromHTML($('#my-quote').html(), 10, 10, {
+	        'width': 600
+	    });
+	    doc.save('revel-quote.pdf');
+	}
+
+</script>
 
 </body>
 </html>
