@@ -36,9 +36,9 @@
       <div class="adv-logo">
         <img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
       </div>
-      <h1>Get Your Free Processing Quote Today</h1>
+      <h1>Generate Your Free Quote Today</h1>
       <p>
-        Learn how much you could be saving on your processing, compare your current rates to your generated quote for Revel Advantage!
+         Complete the form below for your very own Revel Advantage processing quote and get in contact with a Rep immediately.
          <br><small class="text-muted">Rates are subject to change*</small>
       </p>
     </div>
@@ -77,7 +77,7 @@
 		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts">
 		  </div>
       <div class="form-submit">
-        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid" value="Get Quote">
+        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid">
       </div>
 		</form>
     <!-- Results -->
@@ -156,10 +156,8 @@
 			</table>
       <div class="quote-btns">
         <button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
-  			<button id="emailQuoteButton" type="button" class="btn btn-light">Email Quote</button>
-        <br>
-        <br>
-  			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch To Revel Advantage Now</button>
+  			<button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button>
+  			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch Now</button>
       </div>
       <div class="call-now">
         <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
