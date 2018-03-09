@@ -1,18 +1,12 @@
-<<<<<<< HEAD
 <?php
 
- require_once 'inc/keys.php';
- $secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
- $munchkinHash = hash('sha1', $secret);
- echo $munchkinHash;
+ // require_once 'inc/keys.php';
+ // $secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
+ // $munchkinHash = hash('sha1', $secret);
+ // echo $munchkinHash;
 
  ?>
-<<<<<<< Updated upstream
 
-=======
-=======
->>>>>>> master
->>>>>>> Stashed changes
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -62,7 +56,6 @@
 		    <span ng-show="getQuoteForm.businessName.$touched && getQuoteForm.businessName.$invalid">Your Business name is required.</span>
 		  </div>
 		  <div class="form-group">
-<<<<<<< HEAD
 		    <label for="totalMonthlyVolume">Current Total Monthly Volume (ex. $20,000)</label>
 		    <span class="input-group-addon"></span>
 		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" />
@@ -84,26 +77,6 @@
 		<div class="my-quote" >
 			<h2>Estimate Prepared for:</h2>
 			<p>{{fullName}} of {{businessName}} on {{dateToday-mm-dd-yy}}</p>
-=======
-		    <label for="totalMonthlyVolume">Total Monthly Volume ($)</label>
-		    <span class="input-group-addon">$</span>
-		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" required>
-		  </div>
-		  <div class="form-group">
-		    <label for="totalMonthlyTransactions">Total Monthly Transactions</label>
-		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions" required>
-		  </div>
-		  <div class="form-group">
-		    <label for="totalMonthlyCosts">Your Total Monthly Costs</label>
-		    <span class="input-group-addon">$</span>
-		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts" required>
-		  </div>
-		  <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.$invalid" value="Get Quote">
-		</form>
-		<div id="my-quote" style="display: none">
-			<h2>Prepared for:</h2>
-			<p>{{fullName}}</p>
->>>>>>> master
 			<p>{{email}}</p>
 			<!-- <p>{{businessName}}</p> -->
 			<table class="table table-hover">
@@ -180,32 +153,13 @@
 	<script>
 		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2550, function(form){
 			var fullName,
-<<<<<<< Updated upstream
-				firstName, 
-				lastName, 
-				emailAddress, 
-				businessName, 
-				totalMonthlyVolume, 
-				totalMonthlyTransactions,
-				mktoHash, 
-=======
-<<<<<<< HEAD
 				firstName,
 				lastName,
 				emailAddress,
 				businessName,
 				totalMonthlyVolume,
 				totalMonthlyTransactions,
-=======
-				firstName, 
-				lastName, 
-				emailAddress, 
-				businessName, 
-				totalMonthlyVolume, 
-				totalMonthlyTransactions,
-				mktoHash, 
->>>>>>> master
->>>>>>> Stashed changes
+				mktoHash,
 				yourTotalMonthlyCosts;
 			var mktoForm = form;
 
@@ -220,9 +174,7 @@
 				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
 				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+
 				form.setValues({
 					"FirstName" : firstName,
 					"LastName" : lastName,
@@ -234,10 +186,9 @@
 				});
 				//form.submit();
 				console.log(form.vals());
-=======
->>>>>>> Stashed changes
+
 				if (emailAddress && fullName) {
-					
+
 					form.setValues({
 						"FirstName" : firstName,
 						"LastName" : lastName,
@@ -260,20 +211,16 @@
 								Munchkin.munchkinFunction('associateLead', {
 									'Email' : values['Email'],
 									'utm_term' : 'Yes Email Me'
-								}, 
+								},
 								mktoHash);
 								this.innerHTML = 'Changed';
 							}
 						});
-						return false;								
+						return false;
 
 					});
-					
+
 				}
-<<<<<<< Updated upstream
-=======
->>>>>>> master
->>>>>>> Stashed changes
 			};
 
 
@@ -306,17 +253,9 @@
 		});
     </script>
     <script src="/js/quote.js"></script>
-<<<<<<< Updated upstream
 <!-- <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script> -->
 <form id="mktoForm_2552"></form>
-=======
-<<<<<<< HEAD
 
-=======
-<!-- <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script> -->
-<form id="mktoForm_2552"></form>
->>>>>>> master
->>>>>>> Stashed changes
 
 <script type="text/javascript">
 (function() {
@@ -340,28 +279,20 @@
   document.getElementsByTagName('head')[0].appendChild(s);
 })();
 </script>
-<<<<<<< HEAD
 
-=======
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script>
 
-<<<<<<< Updated upstream
-<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-<script>
-
-=======
->>>>>>> Stashed changes
 // This code is collected but useful, click below to jsfiddle link.
 
 </script>
-  
+
 <script>
 	var switchQuoteButton = document.getElementById('switchQuoteButton');
 	switchQuoteButton.onclick = function(){
 		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
 			MktoForms2.lightbox(form).show();
-		});		
+		});
 	}
 	var saveQuoteButton = document.getElementById('saveQuoteButton');
 	saveQuoteButton.onclick = function(){
@@ -373,10 +304,6 @@
 	}
 
 </script>
-<<<<<<< Updated upstream
-=======
->>>>>>> master
->>>>>>> Stashed changes
 
 </body>
 </html>
