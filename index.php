@@ -58,19 +58,19 @@
 		  <div class="form-group">
 		    <label for="totalMonthlyVolume">Current Total Monthly Volume (ex. $20,000)</label>
 		    <span class="input-group-addon"></span>
-		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" />
+		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" required />
 		  </div>
 		  <div class="form-group">
 		    <label for="totalMonthlyTransactions">Current Total Monthly Transactions</label>
-		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions">
+		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions" required >
 		  </div>
 		  <div class="form-group">
 		    <label for="totalMonthlyCosts">Current Total Monthly Processing Fees (ex. $400.00)</label>
 		    <span class="input-group-addon"></span>
-		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts">
+		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts" required >
 		  </div>
       <div class="form-submit">
-        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid" value="Get Quote">
+        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.$invalid" value="Get Quote">
       </div>
 		</form>
     <!-- Results -->
