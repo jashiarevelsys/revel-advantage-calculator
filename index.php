@@ -70,15 +70,13 @@
 		    <input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts">
 		  </div>
       <div class="form-submit">
-        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid">
+        <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.email.$invalid" value="Get Quote">
       </div>
 		</form>
     <!-- Results -->
 		<div class="my-quote" >
 			<h2>Estimate Prepared for:</h2>
-			<p>{{fullName}} of {{businessName}} on {{dateToday-mm-dd-yy}}</p>
-			<p>{{email}}</p>
-			<!-- <p>{{businessName}}</p> -->
+			<p>{{fullName}}<br>{{businessName}}<br>{{email}}<br>{{date | date:'MM-dd-yyyy'}}</p>
 			<table class="table table-hover">
 			  <thead>
 			    <tr>
@@ -129,7 +127,7 @@
 			</table>
       <div class="quote-btns">
         <button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
-  			<button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button>
+  			<!-- <button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button> -->
   			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch Now</button>
       </div>
       <div class="call-now">
@@ -232,7 +230,6 @@
 	</div>
 	<!-- Optional JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- <script src="/js/app.js"></script> -->
     <script>
     	var app = angular.module('quoteGenerator', []);
 		app.controller('quoteController', function($scope, $location){
@@ -241,6 +238,7 @@
 			$scope.yourTotalMonthlyCosts = 100;
 			$scope.myLocation = $location;
 			$scope.showQuote = false;
+			$scope.date = new Date();
 			$scope.totalMonthlyCostsUpdate = function() {
 				return ($scope.totalMonthlyVolume * .0249) + ($scope.totalMonthlyTransactions * .15) + (6.95 + 7.50)
 			};
@@ -254,8 +252,6 @@
     </script>
     <script src="/js/quote.js"></script>
 <!-- <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script> -->
-<form id="mktoForm_2552"></form>
-
 
 <script type="text/javascript">
 (function() {
@@ -282,12 +278,6 @@
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script>
-
-// This code is collected but useful, click below to jsfiddle link.
-
-</script>
-
-<script>
 	var switchQuoteButton = document.getElementById('switchQuoteButton');
 	switchQuoteButton.onclick = function(){
 		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
@@ -297,7 +287,7 @@
 	var saveQuoteButton = document.getElementById('saveQuoteButton');
 	saveQuoteButton.onclick = function(){
 		var doc = new jsPDF();
-	    doc.fromHTML($('#my-quote').html(), 10, 10, {
+	    doc.fromHTML($('.my-quote').html(), 10, 10, {
 	        'width': 600
 	    });
 	    doc.save('revel-quote.pdf');
