@@ -1,5 +1,7 @@
+$revel-blue: #00a3e0;
 body{
   background-color: #e3e3e3;
+  font-family: 'proxima-nova';
 }
 
 .container{
@@ -50,6 +52,7 @@ body{
     }
     .my-quote{
       margin: 30px auto;
+      /*display: none;*/
       p{
         text-align: left;
       }
@@ -69,6 +72,34 @@ body{
             }
           }
         }
+        #enterPhoneNumber {
+          display: none;
+          position: fixed;
+          top: 30vh;
+          left: 0;
+          right: 0;
+          z-index: 2;
+          max-width: 500px;
+          padding: 50px 50px 30px;
+          margin: 0px auto;
+          border: thin solid #373b40;
+          border-radius: 6px;
+          background-color: white;
+          #cancelButton {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 1.4em;
+            padding: 2px 9px;
+            border: thin solid #373b40;
+            border-radius: 6px;
+            &:hover {
+              background-color: black;
+              color: white;
+              cursor: pointer;
+            }
+          }
+        }
       }
       table{
         background-color: #e3e3e3;
@@ -78,5 +109,19 @@ body{
           border-top: none;
         }
       }
+  }
+  #initial-quote-form {
+    input[type="submit"] {
+      &:disabled {
+        background-color: #f3f3f3;
+        &:hover{
+          color: $revel-blue;
+        }
+      }
+      &:enabled {
+        background-color: $revel-blue;
+        color:white;
+      }
+    }
   }
 }

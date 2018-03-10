@@ -18,24 +18,23 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/materia/bootstrap.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="/css/main.css" media="screen" title="no title">
-
+	<link rel="stylesheet" href="https://use.typekit.net/vog3uzk.css">
 
 </head>
 <body>
 
 	<div class="container">
-
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
-    <div class="form-head">
-      <div class="adv-logo">
-        <img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
-      </div>
-      <h1>Generate Your Free Quote Today</h1>
-      <p>
-         Complete the form below for your very own Revel Advantage processing quote and get in contact with a Rep immediately.
-         <br><small class="text-muted">Rates are subject to change*</small>
-      </p>
-    </div>
+		<div class="form-head">
+			<div class="adv-logo">
+				<img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
+			</div>
+			<h1>Generate Your Free Quote Today</h1>
+			<p>
+				Complete the form below for your very own Revel Advantage processing quote and get in contact with a Rep immediately.<br>
+				<small class="text-muted">Rates are subject to change*</small>
+			</p>
+		</div>
 	   	<form id="initial-quote-form" name="getQuoteForm" novalidate>
 		  <div class="form-group">
 		  	<label for="fullName">Full Name</label>
@@ -125,21 +124,28 @@
 			    </tr>
 			  </tbody>
 			</table>
+
+			<div id="enterPhoneNumber">
+				<h2>What's a good number to call you?</h2>
+				<div id="cancelButton">X</div>
+				<form name="callForm" id="callForm" novalidate>
+					<div class="form-group">
+				  	<label for="phone">Phone</label>
+				  	<input ng-model="phone" name="phone" type="tel" id="phoneNumber" class="form-control" placeholder="Your Phone Number" required>
+				  	<span ng-show="callForm.phone.$touched && callForm.phone.$invalid">Your Phone Number is required.</span>
+					</div>
+				    <div class="form-submit">
+				    	<input type="submit" id="call-me-now-submit" class="btn btn-primary" ng-disabled="callForm.phone.$invalid" value="Call Me Now">
+				    </div>
+				</form>
+				<div id="submitted"></div>
+			</div>
       <div class="quote-btns">
         <button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
   			<!-- <button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button> -->
   			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch Now</button>
       </div>
-      <div class="call-now">
-        <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
-        <form id="mktoForm_2552"></form>
-        <script>
-        MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
-        // MktoForms2.lightbox(form).show();
-        });
-        </script>
-      </div>
-			<div class="high-opacity-gradient"></div>
+		<div class="high-opacity-gradient"></div>
 
 		</div>
 		<!-- Add in the scripts here -->
@@ -172,19 +178,6 @@
 				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
 				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
 
-
-				form.setValues({
-					"FirstName" : firstName,
-					"LastName" : lastName,
-					"Email" : emailAddress,
-					"Company" : businessName,
-					"Total_Monthly_Volume__c" : totalMonthlyVolume,
-					"Total_Monthly_Transactions__c" : totalMonthlyTransactions,
-					"Your_Currently_Monthly_Cost__c" : yourTotalMonthlyCosts
-				});
-				//form.submit();
-				console.log(form.vals());
-
 				if (emailAddress && fullName) {
 
 					form.setValues({
@@ -199,7 +192,7 @@
 					form.submit();
 					form.onSuccess(function(values, followUpUrl){
 						$('#initial-quote-form').hide();
-						$('#my-quote').show();
+						$('.my-quote').show();
 						var values = form.vals();
 
 						$.post('/inc/quote.php', {email: values['Email']}, function(data, textStatus, xhr) {
@@ -211,7 +204,7 @@
 									'utm_term' : 'Yes Email Me'
 								},
 								mktoHash);
-								this.innerHTML = 'Changed';
+								this.innerHTML = 'Email Sent';
 							}
 						});
 						return false;
@@ -221,6 +214,31 @@
 				}
 			};
 
+
+		});
+		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
+					var switchQuoteButton = document.getElementById('switchQuoteButton');
+					switchQuoteButton.onclick = function(){
+						$('#enterPhoneNumber').show();
+
+					}
+					var callMeNowSubmit = document.getElementById('call-me-now-submit');
+					callMeNowSubmit.onclick = function(){
+						var phoneNumber = document.getElementById('phoneNumber');
+						form.vals({
+							"Phone" : phoneNumber
+						});
+						form.submit();
+						form.onSuccess(function(values, followUpUrl) {
+							$('#enterPhoneNumber').html('<h1>Someone will be with you shortly</h1>')
+							return false;
+						});
+					};
+					var cancelButton = document.getElementById('cancelButton');
+					cancelButton.onclick = function() {
+						$('#enterPhoneNumber').hide();
+						console.log('add');
+					};
 
 		});
 
@@ -278,12 +296,6 @@
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script>
-	var switchQuoteButton = document.getElementById('switchQuoteButton');
-	switchQuoteButton.onclick = function(){
-		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
-			MktoForms2.lightbox(form).show();
-		});
-	}
 	var saveQuoteButton = document.getElementById('saveQuoteButton');
 	saveQuoteButton.onclick = function(){
 		var doc = new jsPDF();
