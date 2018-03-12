@@ -40,9 +40,10 @@ body {
           color: white; }
     .container #main .my-quote {
       margin: 30px auto;
-      /*display: none;*/ }
+      display: none; }
       .container #main .my-quote p {
-        text-align: left; }
+        text-align: left;
+        margin-left: 0px; }
       .container #main .my-quote .quote-btns {
         text-align: center;
         margin: 30px auto; }

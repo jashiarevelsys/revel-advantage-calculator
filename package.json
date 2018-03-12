@@ -1,0 +1,22 @@
+{
+  "name": "revel-advantage-calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jashiarevelsys/revel-advantage-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jashiarevelsys/revel-advantage-calculator/issues"
+  },
+  "homepage": "https://github.com/jashiarevelsys/revel-advantage-calculator#readme",
+  "dependencies": {
+    "jspdf": "^1.3.5"
+  }
+}

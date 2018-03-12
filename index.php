@@ -73,7 +73,11 @@
       </div>
 		</form>
     <!-- Results -->
-		<div class="my-quote" >
+		<div id="my-quote" class="my-quote" >
+			
+			<img src="/images/revel-advantage-logo.png"  alt="" width="300" style="float: right;">
+			
+			
 			<h2>Estimate Prepared for:</h2>
 			<p>{{fullName}}<br>{{businessName}}<br>{{email}}<br>{{date | date:'MM-dd-yyyy'}}</p>
 			<table class="table table-hover">
@@ -135,7 +139,7 @@
 				  	<span ng-show="callForm.phone.$touched && callForm.phone.$invalid">Your Phone Number is required.</span>
 					</div>
 				    <div class="form-submit">
-				    	<input type="submit" id="call-me-now-submit" class="btn btn-primary" ng-disabled="callForm.phone.$invalid" value="Call Me Now">
+				    	<input type="submit" id="callMeNowSubmit" class="btn btn-primary" ng-disabled="callForm.phone.$invalid" value="Call Me Now">
 				    </div>
 				</form>
 				<div id="submitted"></div>
@@ -155,6 +159,7 @@
  	<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
 	<!-- <form id="mktoForm_2550"></form> -->
 	<script>
+		var phoneNumber;
 		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2550, function(form){
 			var fullName,
 				firstName,
@@ -197,14 +202,34 @@
 
 						$.post('/inc/quote.php', {email: values['Email']}, function(data, textStatus, xhr) {
 							var mktoHash = JSON.parse(data);
-							var emailMeButton = document.getElementById('emailQuoteButton');
-							emailMeButton.onclick = function(){
+							//var emailMeButton = document.getElementById('emailQuoteButton');
+							//emailMeButton.onclick = function(){
+							//	Munchkin.munchkinFunction('associateLead', {
+							//		'Email' : values['Email'],
+							//		'utm_term' : 'Yes Email Me'
+							//	},
+							//	mktoHash);
+							//	this.innerHTML = 'Email Sent';
+							//}
+							var callMeNowSubmit = document.getElementById('callMeNowSubmit');
+							callMeNowSubmit.onclick = function() {
 								Munchkin.munchkinFunction('associateLead', {
 									'Email' : values['Email'],
-									'utm_term' : 'Yes Email Me'
+									'utm_term' : 'Yes Call Me',
+									'Phone' : document.getElementById('phoneNumber').value
 								},
 								mktoHash);
-								this.innerHTML = 'Email Sent';
+								console.log(document.getElementById('phoneNumber').value);
+								console.log(typeof mktoHash);
+							}
+							var switchQuoteButton = document.getElementById('switchQuoteButton');
+							switchQuoteButton.onclick = function(){
+								$('#enterPhoneNumber').show();
+
+							}
+							var cancelButton = document.getElementById('cancelButton');
+							cancelButton.onclick = function() {
+								$('#enterPhoneNumber').hide();
 							}
 						});
 						return false;
@@ -216,31 +241,30 @@
 
 
 		});
-		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
-					var switchQuoteButton = document.getElementById('switchQuoteButton');
-					switchQuoteButton.onclick = function(){
-						$('#enterPhoneNumber').show();
-
-					}
-					var callMeNowSubmit = document.getElementById('call-me-now-submit');
-					callMeNowSubmit.onclick = function(){
-						var phoneNumber = document.getElementById('phoneNumber');
-						form.vals({
-							"Phone" : phoneNumber
-						});
-						form.submit();
-						form.onSuccess(function(values, followUpUrl) {
-							$('#enterPhoneNumber').html('<h1>Someone will be with you shortly</h1>')
-							return false;
-						});
-					};
-					var cancelButton = document.getElementById('cancelButton');
-					cancelButton.onclick = function() {
-						$('#enterPhoneNumber').hide();
-						console.log('add');
-					};
-
-		});
+		//MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2552, function (form){
+		//			var switchQuoteButton = document.getElementById('switchQuoteButton');
+		//			switchQuoteButton.onclick = function(){
+		//				$('#enterPhoneNumber').show();
+//
+		//			}
+		//			var callMeNowSubmit = document.getElementById('call-me-now-submit');
+		//			callMeNowSubmit.onclick = function(){
+		//				var phoneNumber = document.getElementById('phoneNumber');
+		//				form.vals({
+		//					"Phone" : phoneNumber
+		//				});
+		//				form.submit();
+		//				form.onSuccess(function(values, followUpUrl) {
+		//					$('#enterPhoneNumber').html('<h1>Someone will be with you shortly</h1>')
+		//					return false;
+		//				});
+		//			};
+		//			var cancelButton = document.getElementById('cancelButton');
+		//			cancelButton.onclick = function() {
+		//				$('#enterPhoneNumber').hide();
+		//			};
+//
+		//});
 
 
 	</script>
@@ -295,14 +319,21 @@
 </script>
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script>
 	var saveQuoteButton = document.getElementById('saveQuoteButton');
 	saveQuoteButton.onclick = function(){
-		var doc = new jsPDF();
-	    doc.fromHTML($('.my-quote').html(), 10, 10, {
-	        'width': 600
-	    });
-	    doc.save('revel-quote.pdf');
+		function genPDF() {
+			html2canvas(document.getElementById('my-quote')).then(function(canvas) {
+				var img = canvas.toDataURL('image/png');
+				var doc = new jsPDF('p', 'pt', 'a4');
+				//var width = doc.internal.pageSize.width;    
+				//var height = doc.internal.pageSize.height;
+				doc.addImage(img, 'JPEG', 50, 50, 500, 500);
+				doc.save('revel-quote');
+			});
+		}
+		genPDF();
 	}
 
 </script>

@@ -52,9 +52,10 @@ body{
     }
     .my-quote{
       margin: 30px auto;
-      /*display: none;*/
+      display: none;
       p{
         text-align: left;
+        margin-left: 0px;
       }
       .quote-btns{
         text-align: center;
