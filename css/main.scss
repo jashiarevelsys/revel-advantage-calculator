@@ -101,6 +101,9 @@ body{
               cursor: pointer;
             }
           }
+          #submitted-form {
+            display: none;
+          }
         }
       }
       table{

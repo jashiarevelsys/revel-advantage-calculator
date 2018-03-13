@@ -25,13 +25,13 @@
 
 	<div class="container">
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
+		<div class="adv-logo">
+			<img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
+		</div>
 		<div class="form-head">
-			<div class="adv-logo">
-				<img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
-			</div>
-			<h1>Generate Your Free Quote Today</h1>
+			<h1>Generate Your Free Processing Quote Today</h1>
 			<p>
-				Complete the form below for your very own Revel Advantage processing quote and get in contact with a Rep immediately.<br>
+				Learn how much you could be saving on your credit card processing, compare your current rates to your generated quote for Revel Advantage!<br>
 				<small class="text-muted">Rates are subject to change*</small>
 			</p>
 		</div>
@@ -60,7 +60,7 @@
 		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" required />
 		  </div>
 		  <div class="form-group">
-		    <label for="totalMonthlyTransactions">Current Total Monthly Transactions</label>
+		    <label for="totalMonthlyTransactions">Current Number of Monthly Transactions</label>
 		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions" required >
 		  </div>
 		  <div class="form-group">
@@ -74,10 +74,10 @@
 		</form>
 		<!-- Talk with a specialist -->
 		<div id="speak-with-a-specialist">
-			<h2>Wow, {{fullName}}!<br>Your business has really unique needs</h2>
+			<h2>Hi, {{fullName}}!<br>It looks like your business has unique needs.</h2>
 			<p>You might be better suited to speak with a specialist.</p>
 			<p>Want to speak with a specialist today?</p>
-	  		<button id="speak-with-a-specialist" type="button" class="btn btn-light">Yes, Call Me</button>
+	  		<button type="button" class="btn btn-light">Yes, Call Me</button>
 	  		<div>
 	  			<a id="back-button-to-generator" class="">Back</a>
 	  		</div>
@@ -85,7 +85,7 @@
     <!-- Results -->
 		<div id="my-quote" class="my-quote" >
 			
-			<img src="/images/revel-advantage-logo.png"  alt="" width="300" style="float: right;">
+			<img src="/images/revel-advantage-logo.png"  alt="" width="200" style="float: right;margin-right: 20px;">
 			
 			
 			<h2>Estimate Prepared for:</h2>
@@ -101,7 +101,7 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <th scope="row">Discount Rate</th>
+			      <th scope="row">Transaction Base Rate</th>
 			      <td id="discount-rate-rate">2.49%</td>
 			      <td id="discount-rate-volume">${{totalMonthlyVolume}}</td>
 			      <td id="discount-rate-cost">{{totalMonthlyVolume * .0249 | currency}}</td>
@@ -113,13 +113,17 @@
 			      <td id="transaction-fee-cost">{{ (totalMonthlyTransactions) * .15 | currency }}</td>
 			    </tr>
 			    <tr>
+			      <th scope="row" colspan="3">Account Fees</th>
+			      <td id="breach-coverage-cost">$20.00</td>
+			    </tr>
+			    <!-- <tr>
 			      <th scope="row" colspan="3">Breach Coverage</th>
 			      <td id="breach-coverage-cost">$6.95</td>
 			    </tr>
 			    <tr>
 			      <th scope="row" colspan="3">Translink Access</th>
 			      <td id="translink-access-cost">$7.50</td>
-			    </tr>
+			    </tr> -->
 			    <tr>
 			      <th scope="row" colspan="3">Total Monthly Cost</th>
 			      <td>${{(totalMonthlyCostsUpdate()) | number:2 }}</td>
@@ -142,25 +146,27 @@
 			<div id="enterPhoneNumber">
 				<div id="cancelButton">X</div>
 				<form name="callForm" id="callForm" novalidate>
-				<h2>What's a good number to call you?</h2>
+				<p>What is a good number for us to call?<br>A Revel Advantage expert will be in touch.</p>
 					<div class="form-group">
 				  	<label for="phone">Phone</label>
 				  	<input ng-model="phone" name="phone" type="tel" id="phoneNumber" class="form-control" placeholder="Your Phone Number" required>
 				  	<span ng-show="callForm.phone.$touched && callForm.phone.$invalid">Your Phone Number is required.</span>
 					</div>
 				    <div class="form-submit">
-				    	<input type="submit" id="callMeNowSubmit" class="btn btn-primary" ng-disabled="callForm.phone.$invalid" value="Call Me Now">
+				    	<input type="submit" id="callMeNowSubmit" class="btn btn-primary" ng-disabled="callForm.phone.$invalid" value="Give Me a Call">
 				    </div>
 				</form>
-				<div id="submitted"></div>
+				<div id="submitted-form">
+					<h2>Thank you! We will be in touch shortly.</h2>
+					<!-- <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
+					<form id="mktoForm_2309"></form>
+					<script>MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2309);</script> -->
+				</div>
 			</div>
-      <div class="quote-btns">
-        <button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
-  			<!-- <button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button> -->
-  		<button id="switchQuoteButton" type="button" class="btn btn-light">Get Revel Advantage</button>
-      </div>
-		<div class="high-opacity-gradient"></div>
-
+			<div class="quote-btns" data-html2canvas-ignore="true">
+				<button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
+				<button id="switchQuoteButton" type="button" class="btn btn-light">Get Revel Advantage</button>
+			</div>
 		</div>
 		<!-- Add in the scripts here -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -182,6 +188,7 @@
 			event.preventDefault();
 			$('#speak-with-a-specialist').hide();
 			$('#initial-quote-form').show();
+			$('.form-head').show();
 		});
 
 
@@ -211,6 +218,7 @@
 
 				if (revelAdvantageSavings() < 0){
 					$('#initial-quote-form').hide();
+					$('.form-head').hide();
 					$('#speak-with-a-specialist').show();
 					return;
 				}
@@ -229,6 +237,7 @@
 					form.submit();
 					form.onSuccess(function(values, followUpUrl){
 						$('#initial-quote-form').hide();
+						$('.form-head').hide();
 						$('.my-quote').show();
 						values = form.vals();
 
@@ -254,10 +263,7 @@
 									},
 									mktoHash);
 									$('#enterPhoneNumber #callForm').hide();
-									$('#enterPhoneNumber').append('<h2>Thank you. Someone will be with you shortly</h2>');
-									setTimeout(function(){
-										$('#enterPhoneNumber').hide('slow');
-									}, 2000);
+									$('#enterPhoneNumber #submitted-form').show();
 								}
 								
 							};
@@ -366,10 +372,12 @@
 			html2canvas(document.getElementById('my-quote')).then(function(canvas) {
 				var img = canvas.toDataURL('image/png');
 				var doc = new jsPDF('p', 'pt', 'a4');
+				var businessName = document.getElementById('businessName').value;
+				businessName = businessName.replace(/\W+/g, '-').toLowerCase();
 				//var width = doc.internal.pageSize.width;    
 				//var height = doc.internal.pageSize.height;
-				doc.addImage(img, 'JPEG', 50, 50, 500, 500);
-				doc.save('revel-quote');
+				doc.addImage(img, 'JPEG', 45, 50, 505, 340);
+				doc.save('revel-quote-' + businessName);
 			});
 		}
 		genPDF();

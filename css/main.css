@@ -82,6 +82,8 @@ body {
             background-color: black;
             color: white;
             cursor: pointer; }
+        .container #main .my-quote #enterPhoneNumber #submitted-form {
+          display: none; }
     .container #main table {
       background-color: #e3e3e3;
       border-radius: 6px; }
