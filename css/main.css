@@ -88,6 +88,16 @@ body {
       .container #main table td, .container #main table th {
         border-bottom: 2px solid white;
         border-top: none; }
+      .container #main table tr:nth-last-child(2), .container #main table tr:last-child {
+        background-color: white;
+        font-size: 1.2em; }
+        .container #main table tr:nth-last-child(2) td, .container #main table tr:nth-last-child(2) th, .container #main table tr:last-child td, .container #main table tr:last-child th {
+          border-bottom: thin solid #373b40; }
+        .container #main table tr:nth-last-child(2) td, .container #main table tr:last-child td {
+          color: green;
+          font-weight: 700; }
+      .container #main table tr:nth-last-child(3) td {
+        color: red; }
   .container #initial-quote-form input[type="submit"]:disabled {
     background-color: #f3f3f3; }
     .container #initial-quote-form input[type="submit"]:disabled:hover {
@@ -95,3 +105,17 @@ body {
   .container #initial-quote-form input[type="submit"]:enabled {
     background-color: #00a3e0;
     color: white; }
+  .container #speak-with-a-specialist {
+    display: none;
+    text-align: center;
+    padding: 50px 0px; }
+    .container #speak-with-a-specialist button {
+      margin: 20px;
+      width: 172px; }
+    .container #speak-with-a-specialist #back-button-to-generator {
+      color: #373b40;
+      font-size: 16px; }
+      .container #speak-with-a-specialist #back-button-to-generator:hover {
+        color: #00a3e0;
+        cursor: pointer;
+        text-decoration: underline; }

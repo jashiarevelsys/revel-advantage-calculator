@@ -72,6 +72,16 @@
         <input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.$invalid" value="Get Quote">
       </div>
 		</form>
+		<!-- Talk with a specialist -->
+		<div id="speak-with-a-specialist">
+			<h2>Wow, {{fullName}}!<br>Your business has really unique needs</h2>
+			<p>You might be better suited to speak with a specialist.</p>
+			<p>Want to speak with a specialist today?</p>
+	  		<button id="speak-with-a-specialist" type="button" class="btn btn-light">Yes, Call Me</button>
+	  		<div>
+	  			<a id="back-button-to-generator" class="">Back</a>
+	  		</div>
+		</div>
     <!-- Results -->
 		<div id="my-quote" class="my-quote" >
 			
@@ -130,9 +140,9 @@
 			</table>
 
 			<div id="enterPhoneNumber">
-				<h2>What's a good number to call you?</h2>
 				<div id="cancelButton">X</div>
 				<form name="callForm" id="callForm" novalidate>
+				<h2>What's a good number to call you?</h2>
 					<div class="form-group">
 				  	<label for="phone">Phone</label>
 				  	<input ng-model="phone" name="phone" type="tel" id="phoneNumber" class="form-control" placeholder="Your Phone Number" required>
@@ -147,7 +157,7 @@
       <div class="quote-btns">
         <button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
   			<!-- <button id="emailQuoteButton" type="button" class="btn btn-light">Email Me</button> -->
-  			<button id="switchQuoteButton" type="button" class="btn btn-light">Switch Now</button>
+  		<button id="switchQuoteButton" type="button" class="btn btn-light">Get Revel Advantage</button>
       </div>
 		<div class="high-opacity-gradient"></div>
 
@@ -159,6 +169,22 @@
  	<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
 	<!-- <form id="mktoForm_2550"></form> -->
 	<script>
+		function revelAdvantageSavings(){
+			var totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
+			var yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
+			var totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
+			var rASavings = yourTotalMonthlyCosts - ((totalMonthlyVolume * 0.0249) + (totalMonthlyTransactions * 0.15) + 14.45); 
+			return rASavings;
+		}
+
+		$('#back-button-to-generator').click(function(event) {
+			/* Act on the event */
+			event.preventDefault();
+			$('#speak-with-a-specialist').hide();
+			$('#initial-quote-form').show();
+		});
+
+
 		var phoneNumber;
 		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2550, function(form){
 			var fullName,
@@ -183,6 +209,12 @@
 				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
 				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
 
+				if (revelAdvantageSavings() < 0){
+					$('#initial-quote-form').hide();
+					$('#speak-with-a-specialist').show();
+					return;
+				}
+
 				if (emailAddress && fullName) {
 
 					form.setValues({
@@ -198,9 +230,9 @@
 					form.onSuccess(function(values, followUpUrl){
 						$('#initial-quote-form').hide();
 						$('.my-quote').show();
-						var values = form.vals();
+						values = form.vals();
 
-						$.post('/inc/quote.php', {email: values['Email']}, function(data, textStatus, xhr) {
+						$.post('/inc/quote.php', {email: values.Email}, function(data, textStatus, xhr) {
 							var mktoHash = JSON.parse(data);
 							//var emailMeButton = document.getElementById('emailQuoteButton');
 							//emailMeButton.onclick = function(){
@@ -213,24 +245,31 @@
 							//}
 							var callMeNowSubmit = document.getElementById('callMeNowSubmit');
 							callMeNowSubmit.onclick = function() {
-								Munchkin.munchkinFunction('associateLead', {
-									'Email' : values['Email'],
-									'utm_term' : 'Yes Call Me',
-									'Phone' : document.getElementById('phoneNumber').value
-								},
-								mktoHash);
-								console.log(document.getElementById('phoneNumber').value);
-								console.log(typeof mktoHash);
-							}
+								var phone = document.getElementById('phoneNumber').value;
+								if (phone) {
+									Munchkin.munchkinFunction('associateLead', {
+										'Email' : values.Email,
+										'utm_term' : 'Yes Call Me',
+										'Phone' : phone
+									},
+									mktoHash);
+									$('#enterPhoneNumber #callForm').hide();
+									$('#enterPhoneNumber').append('<h2>Thank you. Someone will be with you shortly</h2>');
+									setTimeout(function(){
+										$('#enterPhoneNumber').hide('slow');
+									}, 2000);
+								}
+								
+							};
 							var switchQuoteButton = document.getElementById('switchQuoteButton');
 							switchQuoteButton.onclick = function(){
 								$('#enterPhoneNumber').show();
 
-							}
+							};
 							var cancelButton = document.getElementById('cancelButton');
 							cancelButton.onclick = function() {
 								$('#enterPhoneNumber').hide();
-							}
+							};
 						});
 						return false;
 
