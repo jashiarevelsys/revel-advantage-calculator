@@ -21,82 +21,79 @@
 </head>
 <body>
 
-	<div class="container">
+<div class="container">
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
 		<div class="adv-logo">
-			<img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="">
+			<img src="https://static.revelsystems.com/wp-content/themes/reveldown/-/img_min/revel-advantage-logo.svg"  alt="" width="300">
 		</div>
 		<div class="form-head">
-			<h1>Generate Your Free Processing Quote Today</h1>
-			<p>
-				Learn how much you could be saving on your credit card processing, compare your current rates to your generated quote for Revel Advantage!<br>
-				<small class="text-muted">Rates are subject to change*</small>
-			</p>
+			<h1>Generate Quote Below</h1>
 		</div>
-	   	<form id="initial-quote-form" name="getQuoteForm" novalidate>
-		  <div class="form-group">
-		  	<label for="fullName">Full Name</label>
-		  	<input name="fullName" type="text" id="fullName" class="form-control" placeholder="Your Full Name" ng-model="fullName" required>
-		  	<span ng-show="getQuoteForm.fullName.$touched && getQuoteForm.fullName.$invalid">Your full name is required.</span>
-		  </div>
-		  <div class="form-group">
-		    <label for="email">Email address</label>
-		    <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email address" ng-model="email" required>
-		    <span style="color:red" ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$invalid">
-			  <span ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$error.required">Email is required.</span>
-			  <span ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$error.email">Invalid email address.</span>
-		    </span>
-		  </div>
-		  <div class="form-group">
-		    <label for="businessName">Business Name</label>
-		    <input name="businessName" type="text" class="form-control" id="businessName" aria-describedby="emailHelp" placeholder="Enter Business Name" ng-model="businessName" required>
-		    <span ng-show="getQuoteForm.businessName.$touched && getQuoteForm.businessName.$invalid">Your Business name is required.</span>
-		  </div>
-		  <div class="form-group">
-		    <label for="totalMonthlyVolume">Current Total Monthly Volume (ex. $20,000)</label>
-		    <span class="input-group-addon"></span>
-		     <input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" required />
-		  </div>
-		  <div class="form-group">
-		    <label for="totalMonthlyTransactions">Current Number of Monthly Transactions</label>
-		    <input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions" required >
-		  </div>
+<!-- quoting area -->
+
+		<form id="initial-quote-form" name="getQuoteForm" novalidate>
+			<div class="form-group">
+				<label for="fullName">Full Name</label>
+				<input name="fullName" type="text" id="fullName" class="form-control" placeholder="Client Full Name" ng-model="fullName" required>
+				<span ng-show="getQuoteForm.fullName.$touched && getQuoteForm.fullName.$invalid">Full name is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="email">Email address</label>
+				<input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter client email address" ng-model="email" required>
+				<span style="color:red" ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$invalid">
+				<span ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$error.required">Email is required.</span>
+				<span ng-show="getQuoteForm.email.$dirty && getQuoteForm.email.$error.email">Invalid email address.</span>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="businessName">Business Name</label>
+				<input name="businessName" type="text" class="form-control" id="businessName" aria-describedby="emailHelp" placeholder="Enter Client Business Name" ng-model="businessName" required>
+				<span ng-show="getQuoteForm.businessName.$touched && getQuoteForm.businessName.$invalid">Business name is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="totalMonthlyVolume">Current Total Monthly Volume (ex. $20,000)</label>
+				<span class="input-group-addon"></span>
+				<input type="number" min="0" step="1" value="1000" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="totalMonthlyVolume" ng-model="totalMonthlyVolume" required />
+			</div>
+			<div class="form-group">
+				<label for="totalMonthlyTransactions">Current Number of Monthly Transactions</label>
+				<input type="number" class="form-control" id="totalMonthlyTransactions" aria-describedby="emailHelp" placeholder="Enter your total monthly transactions" ng-model="totalMonthlyTransactions" required >
+			</div>
 			<div class="form-group">
 				<label for="totalMonthlyCosts">Current Total Monthly Processing Fees (ex. $400.00)</label>
 				<span class="input-group-addon"></span>
 				<input type="number" class="form-control" id="totalMonthlyCosts" aria-describedby="emailHelp" placeholder="Enter your total monthly costs" ng-model="yourTotalMonthlyCosts" required >
 			</div>
-			<div class="form-submit">
-				<input type="submit" id="initial-quote-form-submit" class="btn btn-primary" ng-disabled="getQuoteForm.$invalid" value="Get Quote">
+			<div class="form-group">
+				<label for="repName">Rep Name</label>
+				<input name="repName" type="text" id="repName" class="form-control" placeholder="Client Full Name" ng-model="repName" required>
+				<span ng-show="getQuoteForm.repName.$touched && getQuoteForm.repName.$invalid">Full name is required.</span>
+			</div>
+			<div class="form-group">
+				<label for="repEmail">Email address</label>
+				<input name="repEmail" type="email" class="form-control" id="repEmail" aria-describedby="emailHelp" placeholder="Enter client email address" ng-model="repEmail" required>
+				<span style="color:red" ng-show="getQuoteForm.repEmail.$dirty && getQuoteForm.repEmail.$invalid">
+				<span ng-show="getQuoteForm.repEmail.$dirty && getQuoteForm.repEmail.$error.required">Email is required.</span>
+				<span ng-show="getQuoteForm.repEmail.$dirty && getQuoteForm.repEmail.$error.email">Invalid email address.</span>
+				</span>
 			</div>
 		</form>
-		<!-- Talk with a specialist -->
-		<div id="speak-with-a-specialist">
-			<h2>Hi, {{firstName = fullName.split(' ').slice(0, -1).join(' ')}}!<br>It looks like your business has unique needs.</h2>
-			<p>You might be better suited to speak with a specialist.</p>
-			<p>Want to speak with a specialist today?<br>Enter your phone number below.</p>
-			<form name="speakToSpecialist" id="speakToSpecialist">
-				<div class="form-group">
-					<label for="specialistPhone">Phone</label>
-					<input ng-model="specialistPhone" name="specialistPhone" type="tel" id="specialistPhone" class="form-control" placeholder="Your Phone Number" required>
-					<span ng-show="speakToSpecialist.specialistPhone.$touched && speakToSpecialist.specialistPhone.$invalid">Your Phone Number is required.</span>
-				</div>
-				<div class="form-submit">
-					<input type="submit" id="specialist-call-me-submit" class="btn btn-primary" ng-disabled="speakToSpecialist.specialistPhone.$invalid" value="Yes, Call Me">
-				</div>				
-			</form>
-	  		<div>
-	  			<a id="back-button-to-generator" class="">Back</a>
-	  		</div>
+		<div class="quote-btns">
+			<button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
 		</div>
-    <!-- Results -->
-		<div id="my-quote" class="my-quote" >
-			
-			<!-- <img src="/images/revel-advantage-logo.png"  alt="" width="200" style="float: right;margin-right: 20px;" data-html2canvas-ignore="true"> -->
-			
-			
-			<h2>Estimate Prepared for:</h2>
-			<p>{{fullName}}<br>{{businessName}}<br>{{email}}<br>{{date | date:'MM-dd-yyyy'}}</p>
+
+		<div id="my-quote" class="my-quote show-quote" >
+				
+			<div class="quote-head">
+				<h2>Estimate Prepared for:</h2>
+				<p>{{fullName}}<br>{{businessName}}<br>{{email}}<br>{{date | date:'MM-dd-yyyy'}}</p>
+			</div>		
+			<div class="quote-head">
+				<h2>Estimate Prepared By:</h2>
+				<p>{{repName}}<br>{{repEmail}}<br>{{repPhone}}</p>
+			</div>
+				
+				
 			<table class="table table-hover">
 			  <thead>
 			    <tr>
@@ -123,14 +120,6 @@
 			      <th scope="row" colspan="3">Account Fees</th>
 			      <td id="breach-coverage-cost">$20.00</td>
 			    </tr>
-			    <!-- <tr>
-			      <th scope="row" colspan="3">Breach Coverage</th>
-			      <td id="breach-coverage-cost">$6.95</td>
-			    </tr>
-			    <tr>
-			      <th scope="row" colspan="3">Translink Access</th>
-			      <td id="translink-access-cost">$7.50</td>
-			    </tr> -->
 			    <tr>
 			      <th scope="row" colspan="3">Total Monthly Cost</th>
 			      <td>${{(totalMonthlyCostsUpdate()) | number:2 }}</td>
@@ -149,194 +138,14 @@
 			    </tr>
 			  </tbody>
 			</table>
-
-			<div id="enterPhoneNumber">
-				<div id="cancelButton">X</div>
-				<form name="callForm" id="callForm" novalidate>
-				<p>What is a good number for us to call?<br>A Revel Advantage expert will be in touch.</p>
-					<div class="form-group">
-					  	<label for="phone">Phone</label>
-					  	<input ng-model="phone" name="phone" type="tel" id="phoneNumber" class="form-control" placeholder="Your Phone Number" required>
-					  	<span ng-show="callForm.phone.$touched && callForm.phone.$invalid">Your Phone Number is required.</span>
-					</div>
-				    <div class="form-submit">
-				    	<input type="submit" id="callMeNowSubmit" class="btn btn-primary" ng-disabled="callForm.phone.$invalid" value="Give Me a Call">
-				    </div>
-				</form>
-				<div id="submitted-form">
-					<h2>Thank you! We will be in touch shortly.</h2>
-					<p>In the mean time, tell us a little bit more about your business.</p>
-					<form name="moreInformation">
-						<div class="form-group">
-							<label for="currentProcessor">Who are you processesing with?</label>
-							<input name="currentProcessor" type="text" id="currentProcessor" class="form-control" placeholder="Current Processor" ng-model="currentProcessor" required>
-							<span ng-show="moreInformation.currentProcessor.$touched && moreInformation.currentProcessor.$invalid">Your full name is required.</span>
-						</div>						
-						<div class="form-submit">
-							<input type="submit" id="submitMoreInformation" class="btn btn-primary" ng-disabled="moreInformation.currentProcessor.$invalid" value="Send Info">
-						</div>
-						
-					</form>
-				</div>
-			</div>
-			<div class="quote-btns" data-html2canvas-ignore="true">
-				<button id="saveQuoteButton" type="button" class="btn btn-light">Save Quote</button>
-				<button id="switchQuoteButton" type="button" class="btn btn-light">Get Revel Advantage</button>
-			</div>
 		</div>
+
 		<!-- Add in the scripts here -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
  	<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
 	<!-- <form id="mktoForm_2550"></form> -->
-	<script>
-		function revelAdvantageSavings(){
-			var totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
-			var yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
-			var totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
-			var rASavings = yourTotalMonthlyCosts - ((totalMonthlyVolume * 0.0249) + (totalMonthlyTransactions * 0.15) + 14.45); 
-			return rASavings;
-		}
-
-		$('#back-button-to-generator').click(function(event) {
-			/* Act on the event */
-			event.preventDefault();
-			$('#speak-with-a-specialist').hide();
-			$('#initial-quote-form').show();
-			$('.form-head').show();
-		});
-
-		var phoneNumber;
-		MktoForms2.loadForm("//app-sj14.marketo.com", "804-YHP-876", 2550, function(form){
-			var fullName,
-				firstName,
-				lastName,
-				emailAddress,
-				businessName,
-				totalMonthlyVolume,
-				totalMonthlyTransactions,
-				mktoHash,
-				yourTotalMonthlyCosts;
-			var mktoForm = form;
-
-			var clickSubmitButton = document.getElementById('initial-quote-form-submit');
-			clickSubmitButton.onclick = function(){
-				fullName = document.getElementById('fullName').value;
-				firstName = fullName.split(' ').slice(0, -1).join(' ');
-				lastName = fullName.split(' ').slice(-1).join(' ');
-				emailAddress = document.getElementById('email').value;
-				businessName = document.getElementById('businessName').value;
-				totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
-				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
-				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
-
-				if (revelAdvantageSavings() < 0){
-					$('#initial-quote-form').hide();
-					$('.form-head').hide();
-					$('#speak-with-a-specialist').show();
-					return;
-				}
-
-				if (emailAddress && fullName) {
-
-					form.setValues({
-						"FirstName" : firstName,
-						"LastName" : lastName,
-						"Email" : emailAddress,
-						"Company" : businessName,
-						"Total_Monthly_Volume__c" : totalMonthlyVolume,
-						"Total_Monthly_Transactions__c" : totalMonthlyTransactions,
-						"Your_Currently_Monthly_Cost__c" : yourTotalMonthlyCosts
-					});
-					form.submit();
-					form.onSuccess(function(values, followUpUrl){
-						$('#initial-quote-form').hide();
-						$('.form-head').hide();
-						$('.my-quote').show();
-						values = form.vals();
-
-						$.post('/inc/quote.php', {email: values.Email}, function(data, textStatus, xhr) {
-							var mktoHash = JSON.parse(data);
-							var callMeNowSubmit = document.getElementById('callMeNowSubmit');
-							callMeNowSubmit.onclick = function() {
-								var phone = document.getElementById('phoneNumber').value;
-								if (phone) {
-									Munchkin.munchkinFunction('associateLead', {
-										'Email' : values.Email,
-										'utm_term' : 'Yes Call Me',
-										'Phone' : phone
-									},
-									mktoHash);
-									$('#enterPhoneNumber #callForm').hide();
-									$('#enterPhoneNumber #submitted-form').show();
-								}
-								
-							};
-							var switchQuoteButton = document.getElementById('switchQuoteButton');
-							switchQuoteButton.onclick = function(){
-								$('#enterPhoneNumber').show();
-
-							};
-							var cancelButton = document.getElementById('cancelButton');
-							cancelButton.onclick = function() {
-								$('#enterPhoneNumber').hide();
-							};
-							var submitMoreInformation = document.getElementById('submitMoreInformation');
-							submitMoreInformation.onclick = function(){
-								var businessType, businessCategory, noOfLocations, noOfIpadStations, discoverySalesTimeline, currentProcessor, estimatedBudget;
-								businessType = document.getElementById('businessType').value;
-								businessCategory = document.getElementById('businessCategory').value;
-								noOfLocations = document.getElementById('noOfLocations').value;
-								noOfIpadStations = document.getElementById('noOfIpadStations').value;
-								discoverySalesTimeline = document.getElementById('discoverySalesTimeline').value;
-								currentProcessor = document.getElementById('currentProcessor').value;
-								estimatedBudget = document.getElementById('estimatedBudget').value;
-
-							}
-						});
-						return false;
-
-					});
-
-				}
-			};
-			$('#specialist-call-me-submit').click(function(event) {
-				fullName = document.getElementById('fullName').value;
-				firstName = fullName.split(' ').slice(0, -1).join(' ');
-				lastName = fullName.split(' ').slice(-1).join(' ');
-				emailAddress = document.getElementById('email').value;
-				businessName = document.getElementById('businessName').value;
-				totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
-				totalMonthlyTransactions = document.getElementById('totalMonthlyTransactions').value;
-				yourTotalMonthlyCosts = document.getElementById('totalMonthlyCosts').value;
-				specialPhone = document.getElementById('specialistPhone').value;
-
-				form.setValues({
-					"FirstName" : firstName,
-					"LastName" : lastName,
-					"Email" : emailAddress,
-					"Company" : businessName,
-					"Total_Monthly_Volume__c" : totalMonthlyVolume,
-					"Total_Monthly_Transactions__c" : totalMonthlyTransactions,
-					"Your_Currently_Monthly_Cost__c" : yourTotalMonthlyCosts,
-					"utm_term" : "Would like to speak to a specialist ASAP", 
-					"Phone" : specialPhone
-				});
-				form.submit();
-				form.onSuccess(function(values, followUpUrl){
-					$('#speak-with-a-specialist').empty().append($('#submitted-form'));
-					return false;
-				});
-
-					
-			});
-
-
-
-		});
-
-	</script>
 
 	</div>
 	<!-- Optional JavaScript -->
@@ -367,31 +176,6 @@
 			};
 		});
     </script>
-    <script src="/js/quote.js"></script>
-<!-- <script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script> -->
-
-<script type="text/javascript">
-(function() {
-  var didInit = false;
-  function initMunchkin() {
-    if(didInit === false) {
-      didInit = true;
-      Munchkin.init('804-YHP-876');
-    }
-  }
-  var s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = true;
-  s.src = '//munchkin.marketo.net/munchkin.js';
-  s.onreadystatechange = function() {
-    if (this.readyState == 'complete' || this.readyState == 'loaded') {
-      initMunchkin();
-    }
-  };
-  s.onload = initMunchkin;
-  document.getElementsByTagName('head')[0].appendChild(s);
-})();
-</script>
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
