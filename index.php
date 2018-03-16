@@ -17,10 +17,7 @@
 		</div>
 		<div class="form-head">
 			<h1>Generate Your Free Processing Quote Today</h1>
-			<p>
-				Learn how much you could be saving on your credit card processing, compare your current rates to your generated quote for Revel Advantage!<br>
-				<small class="text-muted">Rates are subject to change*</small>
-			</p>
+			<p>Learn how much you could be saving on your credit card processing, compare your current rates to your generated quote for Revel Advantage!<br><small class="text-muted">Rates are subject to change*</small></p>
 		</div>
 	   	<form id="initial-quote-form" name="getQuoteForm" novalidate>
 		  <div class="form-group">
@@ -80,10 +77,6 @@
 		</div>
     <!-- Results -->
 		<div id="my-quote" class="my-quote" >
-			
-			<!-- <img src="/images/revel-advantage-logo.png"  alt="" width="200" style="float: right;margin-right: 20px;" data-html2canvas-ignore="true"> -->
-			
-			
 			<h2>Estimate Prepared for:</h2>
 			<p>{{fullName}}<br>{{businessName}}<br>{{email}}<br>{{date | date:'MM-dd-yyyy'}}</p>
 			<table class="table table-hover">
@@ -243,7 +236,6 @@
 			var rASavings = yourTotalMonthlyCosts - ((totalMonthlyVolume * 0.0249) + (totalMonthlyTransactions * 0.15) + 14.45); 
 			return rASavings;
 		}
-
 		$('#back-button-to-generator').click(function(event) {
 			/* Act on the event */
 			event.preventDefault();

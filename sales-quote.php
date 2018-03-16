@@ -1,12 +1,3 @@
-<?php
-
- // require_once 'inc/keys.php';
- // $secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
- // $munchkinHash = hash('sha1', $secret);
- // echo $munchkinHash;
-
- ?>
-
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -17,10 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/materia/bootstrap.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="/css/main.css" media="screen" title="no title">
 	<link rel="stylesheet" href="https://use.typekit.net/vog3uzk.css">
-
 </head>
 <body>
-
 <div class="container">
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
 		<div class="adv-logo">
