@@ -1,12 +1,3 @@
-<?php
-
- // require_once 'inc/keys.php';
- // $secret = MUNCHKIN_API_KEY . "ja@tpainrules.com";
- // $munchkinHash = hash('sha1', $secret);
- // echo $munchkinHash;
-
- ?>
-
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -17,10 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/materia/bootstrap.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="/css/main.css" media="screen" title="no title">
 	<link rel="stylesheet" href="https://use.typekit.net/vog3uzk.css">
-
 </head>
 <body>
-
 	<div class="container">
 	<div id="main" ng-app="quoteGenerator" ng-controller="quoteController">
 		<div class="adv-logo">
@@ -123,14 +112,6 @@
 			      <th scope="row" colspan="3">Account Fees</th>
 			      <td id="breach-coverage-cost">$20.00</td>
 			    </tr>
-			    <!-- <tr>
-			      <th scope="row" colspan="3">Breach Coverage</th>
-			      <td id="breach-coverage-cost">$6.95</td>
-			    </tr>
-			    <tr>
-			      <th scope="row" colspan="3">Translink Access</th>
-			      <td id="translink-access-cost">$7.50</td>
-			    </tr> -->
 			    <tr>
 			      <th scope="row" colspan="3">Total Monthly Cost</th>
 			      <td>${{(totalMonthlyCostsUpdate()) | number:2 }}</td>
@@ -149,13 +130,11 @@
 			    </tr>
 			  </tbody>
 			</table>
-
 			<div id="enterPhoneNumber">
 				<div id="cancelButton">X</div>
 				<form name="callForm" id="callForm" novalidate>
 				<p>What is a good number for us to call?<br>A Revel Advantage expert will be in touch.</p>
 					<div class="form-group">
-					  	<label for="phone">Phone</label>
 					  	<input ng-model="phone" name="phone" type="tel" id="phoneNumber" class="form-control" placeholder="Your Phone Number" required>
 					  	<span ng-show="callForm.phone.$touched && callForm.phone.$invalid">Your Phone Number is required.</span>
 					</div>
@@ -165,17 +144,84 @@
 				</form>
 				<div id="submitted-form">
 					<h2>Thank you! We will be in touch shortly.</h2>
-					<p>In the mean time, tell us a little bit more about your business.</p>
-					<form name="moreInformation">
+					<p>In the mean time, we'd like to learn more about your business.</p>
+					<form id="moreInformation" name="moreInformation">
 						<div class="form-group">
-							<label for="currentProcessor">Who are you processesing with?</label>
-							<input name="currentProcessor" type="text" id="currentProcessor" class="form-control" placeholder="Current Processor" ng-model="currentProcessor" required>
-							<span ng-show="moreInformation.currentProcessor.$touched && moreInformation.currentProcessor.$invalid">Your full name is required.</span>
+							<input name="Payment_Processor__c" type="text" id="Payment_Processor__c" class="form-control" ng-model="Payment_Processor__c" required placeholder="Who are you processesing with?">
 						</div>						
-						<div class="form-submit">
-							<input type="submit" id="submitMoreInformation" class="btn btn-primary" ng-disabled="moreInformation.currentProcessor.$invalid" value="Send Info">
+						<div class="form-group">
+							<select id="Core_Vertical__c" name="Core_Vertical__c" class="form-control" required>
+								<option value="">Please Select Business Type</option>
+								<option value="QSR">Quick Service</option>
+								<option value="TSR">Table Service</option>
+								<option value="Retail">Retail</option>
+								<option value="Kiosk">Kiosk</option>
+								<option value="Grocery">Grocery</option>
+								<option value="Other">Other</option>
+							</select>
+							<select id="Vertical__c" name="Vertical__c" class="form-control" required>
+								<option value="">Please Select a Category</option>
+								<option value="Cafe">Cafe</option>
+								<option value="Pizza">Pizza</option>
+								<option value="Frozen Yogurt">Frozen Yogurt</option>
+								<option value="Restaurant">Restaurant</option>
+								<option value="Retail">Retail</option>
+								<option value="Bar">Bar</option>
+								<option value="Food Truck">Food Truck</option>
+								<option value="Grocery">Grocery</option>
+								<option value="Deli">Deli</option>
+								<option value="Movie">Movie</option>
+								<option value="Winery">Winery</option>
+								<option value="Salon">Salon</option>
+								<option value="Kiosk">Kiosk</option>
+								<option value="QSR">QSR</option>
+								<option value="TSR">TSR</option>
+								<option value="Other">Other</option>
+								<option value="Brewery">Brewery</option>
+								<option value="Bakery">Bakery</option>
+								<option value="Coffee/Tea">Coffee/Tea</option>
+								<option value="Juice/Smoothie">Juice/Smoothie</option>
+								<option value="Country Club">Country Club</option>
+								<option value="Events/Catering">Events/Catering</option>
+								<option value="Nightclub">Nightclub</option>
+								<option value="Automotive">Automotive</option>
+								<option value="Books/magazines/newsstand">Books/magazines/newsstand</option>
+								<option value="Clothing/accessories/jewelry">Clothing/accessories/jewelry</option>
+								<option value="Convenience store">Convenience store</option>
+								<option value="Electronics">Electronics</option>
+								<option value="Hardware/Supplies">Hardware/Supplies</option>
+								<option value="Health Care">Health Care</option>
+								<option value="Home goods/Furniture">Home goods/Furniture</option>
+								<option value="Liquor Store">Liquor Store</option>
+								<option value="Movie Theater">Movie Theater</option>
+								<option value="Pet Store">Pet Store</option>
+								<option value="Smoke Shop">Smoke Shop</option>
+								<option value="Specialty foods retailer">Specialty foods retailer</option>
+								<option value="Sporting goods/Hobby">Sporting goods/Hobby</option>
+								<option value="Tourism (museums, theme parks)">Tourism (museums, theme parks)</option>
+								<option value="Farmer's Market">Farmer's Market</option>
+								<option value="Festival">Festival</option>
+							</select>
+							<input id="No_of_Locations__c" name="No_of_Locations__c" maxlength="20" type="text" class="form-control" required placeholder="Number of Locations">
+							<input id="of_Terminals__c" name="of_Terminals__c" maxlength="2000" type="text" class="form-control" required placeholder="Number of Terminals">
+							<select id="Discovery_Sales_Timeline__c" name="Discovery_Sales_Timeline__c" class="form-control" required>
+								<option value="">Implementation Timeline </option>
+								<option value="1-3 Months">1-3 Months</option>
+								<option value="4-6 Months">4-6 Months</option>
+								<option value="7-12 Months">7-12 Months</option>
+								<option value="12+ Months">12+ Months</option>
+							</select>
+							<select id="Budget__c" name="Budget__c" class="form-control" required>
+								<option value="">Estimated Budget</option>
+								<option value="Less than $75/Month">Less than $75/Month</option>
+								<option value="$76 - $150/Month">$76 - $150/Month</option>
+								<option value="$151 - $250/Month">$151 - $250/Month</option>
+								<option value="More than $250/Month">More than $250/Month</option>
+							</select>
 						</div>
-						
+						<div class="form-submit">
+							<input type="submit" id="submitMoreInformation" class="btn btn-primary" ng-disabled="moreInformation.currentProcessor.$invalid" value="Send Details">
+						</div>						
 					</form>
 				</div>
 			</div>
@@ -189,7 +235,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
  	<script src="//app-sj14.marketo.com/js/forms2/js/forms2.min.js"></script>
-	<!-- <form id="mktoForm_2550"></form> -->
 	<script>
 		function revelAdvantageSavings(){
 			var totalMonthlyVolume = document.getElementById('totalMonthlyVolume').value;
@@ -285,15 +330,33 @@
 							var submitMoreInformation = document.getElementById('submitMoreInformation');
 							submitMoreInformation.onclick = function(){
 								var businessType, businessCategory, noOfLocations, noOfIpadStations, discoverySalesTimeline, currentProcessor, estimatedBudget;
-								businessType = document.getElementById('businessType').value;
-								businessCategory = document.getElementById('businessCategory').value;
-								noOfLocations = document.getElementById('noOfLocations').value;
-								noOfIpadStations = document.getElementById('noOfIpadStations').value;
-								discoverySalesTimeline = document.getElementById('discoverySalesTimeline').value;
-								currentProcessor = document.getElementById('currentProcessor').value;
-								estimatedBudget = document.getElementById('estimatedBudget').value;
+								businessType = document.getElementById('Core_Vertical__c').value;
+								businessCategory = document.getElementById('Vertical__c').value;
+								noOfLocations = document.getElementById('No_of_Locations__c').value;
+								noOfIpadStations = document.getElementById('of_Terminals__c').value;
+								discoverySalesTimeline = document.getElementById('Discovery_Sales_Timeline__c').value;
+								currentProcessor = document.getElementById('Payment_Processor__c').value;
+								estimatedBudget = document.getElementById('Budget__c').value;
 
-							}
+								if (businessType) {
+									Munchkin.munchkinFunction('associateLead', {
+										'Email' : values.Email,
+										'utm_term' : 'Submitted More Information',
+										'Core_Vertical__c' : businessType,
+										'Vertical__c' : businessCategory,
+										'No_of_Locations__c' : noOfLocations,
+										'of_Terminals__c' : noOfIpadStations,
+										'Discovery_Sales_Timeline__c' : discoverySalesTimeline,
+										'Payment_Processor__c' : currentProcessor,
+										'Budget__c' : estimatedBudget
+									},
+									mktoHash);
+									$('#moreInformation').hide();
+									$('#submitted-form p').hide();
+									$('#submitted-form').append('<a href="//revelsystems.com/blog/">Have You Checked out the Blog?</a>');
+
+								}
+							};
 						});
 						return false;
 
@@ -331,9 +394,6 @@
 
 					
 			});
-
-
-
 		});
 
 	</script>
@@ -413,9 +473,8 @@
 			});
 		}
 		genPDF();
-	}
+	};
 
 </script>
-
 </body>
 </html>
